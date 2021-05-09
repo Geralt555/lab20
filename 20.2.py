@@ -1,20 +1,29 @@
+#!/usr/bin/env python3
+# -*- config: utf-8 -*-
+
+# напишите программу по описанию. Размеры многострочного текстового
+# поля определяются значениями, введенными в однострочные текстовые поля. Изменение
+# размера происходит при нажатии мышью на кнопку, а также при нажатии клавиши Enter.
+# Цвет фона экземпляра Text светлосерый ( lightgrey ), когда поле не в фокусе, и белый,
+# когда имеет фокус.
+
 from tkinter import *
 
 root = Tk()
 
 
-def change_side(event):
+def change_side():
     if ew.get().isdigit():
         t['width'] = ew.get()
     if eh.get().isdigit():
         t['height'] = eh.get()
 
 
-def white_color(event):
+def white_color():
     t['bg'] = 'white'
 
 
-def grey_color(event):
+def grey_color():
     t['bg'] = 'lightgrey'
 
 
