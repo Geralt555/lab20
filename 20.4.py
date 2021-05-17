@@ -5,19 +5,47 @@
 # границы холста до правой:
 
 from tkinter import *
+import time
+import random
+
+WIDTH = 1024
+HEIGHT = 720
+
+tk = Tk()
+cv = Canvas(tk, width=WIDTH, height=HEIGHT)
+tk.title('Tkinter ballz')
+cv.pack()
+
+class Ball:
+    def __init__(self, size, color):
+        self.shape = cv.create_oval(10, 10, size, size, fill=color)
+        self.xspeed = random.randint(-10, 11)
+        if self.xspeed == 0:
+            self.xspeed = random.randint(-10, 11)
+        self.yspeed = random.randint(-10, 11)
+        if self.yspeed == 0:
+            self.yspeed = random.randint(-10, 11)
+
+    def move(self):
+        cv.move(self.shape, self.xspeed, self.yspeed)
+        pos = cv.coords(self.shape)
+        if pos[3] >= HEIGHT or pos[1] <= 0:
+            self.yspeed = -self.yspeed
+
+        if pos[2] >= WIDTH or pos[0] <= 0:
+            self.xspeed = -self.xspeed
+
+colors = ['red', 'gold', 'orange', 'magenta', 'green', 'pink', 'cyan', 'black', 'grey', 'blue']
+balls = []
+for i in range(21):
+    balls.append(Ball(50, random.choice(colors)))
 
 
-def motion():
-    c.move(ball, 1, 0)
-    if c.coords(ball)[2] < 300:
-        root.after(10, motion)
 
 
-root = Tk()
-c = Canvas(root, width=300, height=200,
-           bg="white")
-c.pack()
-ball = c.create_oval(0, 100, 40, 140,
-                     fill='green')
-motion()
-root.mainloop()
+
+while True:
+    for ball in balls:
+        ball.move()
+    tk.update()
+    time.sleep(0.001)

@@ -10,25 +10,12 @@ from tkinter import *
 
 root = Tk()
 
+ent1 = Entry()
+lb1 = Listbox()
 
-def take_item():
-    s = e.get()
-    e.delete(0, END)
-    l.insert(END, s)
+ent1.pack()
+lb1.pack()
+ent1.bind('<Return>', lambda e:  lb1.insert(0, ent1.get()))
+lb1.bind('<Double-Button-1>', lambda e: ent1.insert(0, lb1.get(lb1.curselection())))
 
-
-def give_item():
-    tup = l.curselection()
-    if tup:
-        s = l.get(tup[0])
-        e.delete(0, END)
-        e.insert(0, s)
-
-
-e = Entry()
-e.pack()
-e.bind('<Return>', take_item)
-l = Listbox()
-l.pack()
-l.bind('<Double-Button-1>', give_item)
 root.mainloop()
